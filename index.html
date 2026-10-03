@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Behomess App Decisions</title>
+<meta name="description" content="18 quick decisions for the Behomess app — about 3 minutes.">
+<meta property="og:title" content="Behomess app: 18 quick decisions">
+<meta property="og:description" content="Dharmendra ji, about 3 minutes. Tap, then send on WhatsApp.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: one phone-width column; sticky progress bar; sections of tap-to-choose cards; send bar at the end. Behomess app palette (walnut / oak / linen). */
+:root{
+  --bg:#F2E9DA; --surface:#FBF7F0; --card:#FBF7F0; --ink:#241C16; --muted:#5C6B4F;
+  --walnut:#3B2A1F; --on-walnut:#F2E9DA; --oak:#C08A4E; --oak-ink:#8a5a26; --oak-soft:rgba(192,138,78,.16);
+  --line:rgba(36,28,22,.10); --line-strong:rgba(36,28,22,.18); --done:#5C6B4F; --done-soft:rgba(92,107,79,.14);
+  --warn:#B5502E; --warn-soft:rgba(181,80,46,.12);
+  --f-display:"Sora",system-ui,sans-serif; --f-body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1C1612; --surface:#261E18; --card:#2A211A; --ink:#F2E9DA; --muted:#AEB79F;
+  --walnut:#120D0A; --on-walnut:#F2E9DA; --oak:#D49B5C; --oak-ink:#E5B47E; --oak-soft:rgba(212,155,92,.18);
+  --line:rgba(242,233,218,.10); --line-strong:rgba(242,233,218,.20); --done:#AEB79F; --done-soft:rgba(174,183,159,.16);
+  --warn:#E07A55; --warn-soft:rgba(224,122,85,.16); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1C1612; --surface:#261E18; --card:#2A211A; --ink:#F2E9DA; --muted:#AEB79F;
+  --walnut:#120D0A; --on-walnut:#F2E9DA; --oak:#D49B5C; --oak-ink:#E5B47E; --oak-soft:rgba(212,155,92,.18);
+  --line:rgba(242,233,218,.10); --line-strong:rgba(242,233,218,.20); --done:#AEB79F; --done-soft:rgba(174,183,159,.16);
+  --warn:#E07A55; --warn-soft:rgba(224,122,85,.16); color-scheme:dark }
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);color-scheme:light}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.5;padding:0 16px}
+.wrap{max-width:560px;margin:0 auto;padding-block:0 120px;display:flex;flex-direction:column;gap:18px}
+header.top{background:var(--walnut);color:var(--on-walnut);margin:0 -16px;padding:22px 20px 20px;display:flex;flex-direction:column;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.85}
+.brand b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--oak);color:#2A1D15;font-family:var(--f-display);font-size:14px;letter-spacing:0}
+h1{font-family:var(--f-display);font-weight:700;font-size:24px;line-height:1.2;margin:0;text-wrap:balance}
+.lede{margin:0;font-size:15px;opacity:.9;max-width:60ch}
+.how{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.how span{font-family:var(--f-mono);font-size:12px;padding:4px 10px;border-radius:99px;background:rgba(242,233,218,.12)}
+.progress{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);margin:0 -16px;padding:10px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.bar{flex:1;height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--oak);transition:width .25s}
+.progress small{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+section{display:flex;flex-direction:column;gap:12px}
+section>h2{font-family:var(--f-display);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--oak-ink);margin:10px 2px 0}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.q.changed{border-color:var(--oak)}
+.qhead{display:flex;gap:10px;align-items:baseline}
+.qn{font-family:var(--f-mono);font-size:12px;color:var(--muted);min-width:22px;font-variant-numeric:tabular-nums}
+.qt{margin:0;font-weight:600;font-size:15.5px;min-width:0}
+.qhint{margin:2px 0 0 32px;font-size:13px;color:var(--muted)}
+.opts{display:flex;flex-direction:column;gap:8px;margin-left:32px}
+.opt{position:relative;display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border:1px solid var(--line-strong);border-radius:10px;cursor:pointer;background:var(--surface)}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.dot{flex:none;width:18px;height:18px;margin-top:1px;border-radius:50%;border:2px solid var(--line-strong);display:grid;place-items:center}
+.opt:has(input:checked){border-color:var(--oak);background:var(--oak-soft)}
+.opt:has(input:checked) .dot{border-color:var(--oak)}
+.opt:has(input:checked) .dot::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--oak)}
+.opt:has(input:focus-visible){outline:2px solid var(--oak);outline-offset:2px}
+.olabel{min-width:0}
+.tag{display:inline-block;margin-left:6px;font-family:var(--f-mono);font-size:11px;padding:1px 7px;border-radius:99px;background:var(--done-soft);color:var(--done);vertical-align:1px;white-space:nowrap}
+.note-toggle{margin-left:32px;align-self:flex-start;background:none;border:0;padding:2px 0;color:var(--oak-ink);font:600 13px var(--f-body);cursor:pointer}
+.note-toggle:focus-visible{outline:2px solid var(--oak);outline-offset:2px;border-radius:4px}
+textarea,input[type=email],input[type=text]{width:100%;font:15px var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:10px 12px}
+textarea{min-height:64px;resize:vertical}
+textarea:focus,input:focus{outline:2px solid var(--oak);outline-offset:1px}
+.field{margin-left:32px;display:flex;flex-direction:column;gap:6px}
+.field label{font-size:13px;color:var(--muted);font-weight:600}
+.sendbar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.sendbar .in{max-width:560px;margin:0 auto;display:flex;gap:12px;align-items:center}
+.sendbar p{margin:0;flex:1;font-size:13px;color:var(--muted);min-width:0}
+.btn{display:inline-block;text-decoration:none;text-align:center;font:700 15px var(--f-body);border-radius:12px;padding:13px 18px;border:0;cursor:pointer;background:var(--oak);color:#2A1D15;white-space:nowrap}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong)}
+.btn:disabled{opacity:.55;cursor:default}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.panel h2{font-family:var(--f-display);font-size:20px;margin:0}
+.panel p{margin:0}
+.ok{border-color:var(--done)}
+.err{border-color:var(--warn);background:var(--warn-soft)}
+pre.copy{white-space:pre-wrap;font:13px/1.5 var(--f-mono);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;margin:0;max-height:240px;overflow:auto}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+footer{font-size:12px;color:var(--muted);text-align:center;opacity:.8}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><b>B</b> Behomess app · ai4work</div>
+    <h1>Dharmendra ji, 18 quick decisions for your app</h1>
+    <p class="lede">Har sawaal mein jo abhi app mein bana hai, woh pehle se select hai. Theek hai toh aage badhiye. Badalna ho toh doosra option tap kijiye, ya ek line ka note likh dijiye.</p>
+    <div class="how"><span>about 3 min</span><span>auto-saved on this phone</span><span>Send on WhatsApp at the end</span></div>
+  </header>
+
+  <div class="progress" aria-live="polite"><div class="bar"><i id="barfill"></i></div><small id="progtext">0 changed</small></div>
+
+  <form id="f" novalidate></form>
+
+  <div id="result" hidden></div>
+
+  <footer>Made by ai4work for Behomess · your answers go to Ankita on WhatsApp</footer>
+</div>
+
+<div class="sendbar"><div class="in"><p id="sendhint">Check karke button dabaiye. WhatsApp khulega, bas Send kar dijiye.</p><a class="btn" id="send" href="#" target="_blank" rel="noopener">Send on WhatsApp</a></div></div>
+
+<script>
+const SECTIONS = [
+ { title: "Aapke liye (MD)", qs: [
+  { id:"md_draft", q:"Har job pe conceptual draft aap denge, aur Designer EPC drawing uske baad hi shuru kare?",
+    o:[["yes","Haan, mera draft pehle aayega",1],["parallel","Nahi, dono saath chal sakte hain"],["sometimes","Sirf kuch jobs pe draft dunga"]] },
+  { id:"md_drawing", q:"Shop drawing factory jaane se pehle aap approve karenge?",
+    o:[["yes","Haan, main approve karunga ya wapas bhejunga",1],["no","Nahi, Designer seedha factory bhej de"]] },
+  { id:"md_standin", q:"Aap bahar hon toh drawing approval aur “MD allows” Admin Manager de sakta hai?",
+    o:[["md_only","Nahi, sirf main",1],["admin_too","Haan, Admin Manager bhi de sakta hai"]] },
+  { id:"md_dispatch", q:"Poora payment aaye bina dispatch: yeh permission sirf aap denge?",
+    hint:"Accountant reason ke saath request bhejta hai, aap Approve ya Refuse karte ho.",
+    o:[["md_only","Haan, sirf main",1],["admin_too","Admin Manager bhi de sakta hai"],["accounts","Accountant khud decide kare"]] },
+  { id:"digest", q:"Roz ki summary (kya late hai, kya hua, kya aapke approval ka wait kar raha hai) kaise chahiye?",
+    o:[["email_9_7","Email pe, subah 9 aur shaam 7 baje",1],["email_9","Email pe, sirf subah 9 baje"],["whatsapp","WhatsApp pe chahiye"],["none","Nahi chahiye, app mein dekh lunga"]] },
+  { id:"emails", type:"emails", q:"Summary kis email pe bhejein?",
+    fields:[["email_md","Aapka email"],["email_am","Admin Manager ka email (khali chhod dein toh sirf aapko)"]] }
+ ]},
+ { title: "Time limits", qs: [
+  { id:"range", q:"Aapki sheet mein “30 to 40 days” hai. Iska matlab?",
+    o:[["30_40","30 target, 40 last limit (30 tak green, phir amber, 40 ke baad red)",1],["40","40 hi limit hai, usse pehle sab theek"],["30","30 hi limit hai"]] },
+  { id:"days", q:"Din kaise gine?",
+    o:[["calendar","Calendar days (har din)",1],["no_sunday","Sunday chhod ke"],["working","Sirf working days (Sunday aur chhutti chhod ke)"]] },
+  { id:"late_after", q:"Job kitne din late ho toh aapke dashboard pe dikhe?",
+    o:[["3","3 din ke baad",1],["1","1 din bhi late ho toh"],["5","5 din ke baad"]] }
+ ]},
+ { title: "Photo aur video", qs: [
+  { id:"qc_photo", q:"Factory QC aur warehouse QC pe photo zaroori ho?",
+    o:[["yes","Haan, bina photo QC done nahi",1],["no","Nahi, note kaafi hai"]] },
+  { id:"cleaning", q:"Site cleaning pe kya chahiye?",
+    o:[["both","Photo aur video dono",1],["either","Photo ya video, ek kaafi hai"]] },
+  { id:"visit_photo", q:"Teeno site visits (installation, 3rd day, handover) pe har baar photo?",
+    o:[["yes","Haan, har visit pe",1],["handover","Sirf handover pe"],["no","Zaroori nahi"]] }
+ ]},
+ { title: "Team", qs: [
+  { id:"idle", q:"Koi 2 ghante tak app mein kuch na kare (10 se 7 ke beech), toh “idle” dikhaye?",
+    o:[["all","Haan, sab ke liye",1],["office_only","Haan, par site pe jaane wale staff ko chhod ke"],["no","Idle mat dikhao"]] }
+ ]},
+ { title: "Quotation aur payment", qs: [
+  { id:"quote_lock", q:"Client ko quotation chali gayi, uske baad badlav sirf naye version (v2) se ho?",
+    hint:"Taaki aapko hamesha pata rahe client ko kya gaya tha.",
+    o:[["lock","Haan, bhejne ke baad lock",1],["edit","Nahi, edit chalne do"]] },
+  { id:"advance", q:"Production kab shuru ho?",
+    o:[["50_70","50% payment pe (Fast Track pe 70%)",1],["40","40% payment pe"],["other","Kuch aur (note mein likhiye)"]] },
+  { id:"advance_count", q:"Advance mein kaunse payment gine?",
+    o:[["all","Har payment jo aaya",1],["marked","Sirf jo “advance” likh ke aaya"]] },
+  { id:"kg_name", q:"Letterhead pe naam?",
+    hint:"Kitchens Guru ka GSTIN, bank details aur logo WhatsApp pe bhej dijiye. Iske bina uski quotation PDF nahi banti.",
+    o:[["kitchens","KITCHENS GURU"],["kitchen","KITCHEN GURU"]] },
+  { id:"delay_wa", q:"“Kaam late kyun hai?” wala message staff ko WhatsApp pe bhi jaaye?",
+    o:[["app","Sirf app mein",1],["whatsapp","WhatsApp pe bhi"]] }
+ ]},
+ { title: "Aur kuch?", qs: [
+  { id:"other", type:"free", q:"Koi aur baat jo aap app mein dekhna chahte hain?" }
+ ]}
+];
+
+const KEY = "behomess-md-decisions-v1";
+const state = { a:{}, n:{}, t:{} };
+const ALL = SECTIONS.flatMap(s => s.qs);
+const CHOICE = ALL.filter(q => q.o);
+ALL.forEach(q => { if (q.o) { const d = q.o.find(x => x[2]); state.a[q.id] = d ? d[0] : ""; } });
+try { const saved = JSON.parse(localStorage.getItem(KEY) || "null"); if (saved) { Object.assign(state.a, saved.a||{}); Object.assign(state.n, saved.n||{}); Object.assign(state.t, saved.t||{}); } } catch (e) {}
+function persist(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+const form = document.getElementById("f");
+let n = 0;
+form.innerHTML = SECTIONS.map(sec => `<section><h2>${esc(sec.title)}</h2>${sec.qs.map(q => {
+  n++;
+  const head = `<div class="qhead"><span class="qn">${n}</span><p class="qt" id="t_${q.id}">${esc(q.q)}</p></div>${q.hint ? `<p class="qhint">${esc(q.hint)}</p>` : ""}`;
+  if (q.type === "emails") return `<div class="q" data-q="${q.id}">${head}${q.fields.map(f => `<div class="field"><label for="${f[0]}">${esc(f[1])}</label><input type="email" id="${f[0]}" inputmode="email" autocomplete="email" placeholder="name@example.com"></div>`).join("")}</div>`;
+  if (q.type === "free") return `<div class="q" data-q="${q.id}">${head}<div class="field"><textarea id="note_${q.id}" aria-labelledby="t_${q.id}" placeholder="Likhiye, ya khali chhod dijiye"></textarea></div></div>`;
+  return `<div class="q" data-q="${q.id}" role="radiogroup" aria-labelledby="t_${q.id}">${head}<div class="opts">${q.o.map(o => `<label class="opt"><input type="radio" name="${q.id}" id="${q.id}_${o[0]}" value="${o[0]}"><span class="dot" aria-hidden="true"></span><span class="olabel">${esc(o[1])}${o[2] ? '<span class="tag">abhi yahi bana hai</span>' : ""}</span></label>`).join("")}</div><button type="button" class="note-toggle" data-for="${q.id}">+ note likhein</button><div class="field" hidden id="nf_${q.id}"><textarea id="note_${q.id}" aria-label="Note"></textarea></div></div>`;
+}).join("")}</section>`).join("");
+
+// restore
+CHOICE.forEach(q => { const el = document.getElementById(q.id + "_" + state.a[q.id]); if (el) el.checked = true; });
+Object.keys(state.n).forEach(id => { const t = document.getElementById("note_" + id); if (t) { t.value = state.n[id]; const nf = document.getElementById("nf_" + id); if (nf && state.n[id]) nf.hidden = false; } });
+Object.keys(state.t).forEach(id => { const el = document.getElementById(id); if (el) el.value = state.t[id]; });
+
+form.addEventListener("change", e => { if (e.target.type === "radio") { state.a[e.target.name] = e.target.value; persist(); paint(); } });
+form.addEventListener("input", e => {
+  const id = e.target.id;
+  if (id.startsWith("note_")) state.n[id.slice(5)] = e.target.value; else if (e.target.type === "email") state.t[id] = e.target.value.trim();
+  persist(); paint();
+});
+form.addEventListener("click", e => {
+  const b = e.target.closest(".note-toggle"); if (!b) return;
+  const nf = document.getElementById("nf_" + b.dataset.for); nf.hidden = !nf.hidden;
+  if (!nf.hidden) nf.querySelector("textarea").focus();
+});
+
+function changed(q){ const d = q.o.find(x => x[2]); return d ? state.a[q.id] !== d[0] : !!state.a[q.id]; }
+function paint(){
+  let c = 0, answered = 0;
+  CHOICE.forEach(q => { const isC = changed(q); if (isC) c++; if (state.a[q.id]) answered++; document.querySelector(`[data-q="${q.id}"]`).classList.toggle("changed", isC); });
+  const notes = Object.values(state.n).filter(v => v && v.trim()).length;
+  document.getElementById("barfill").style.width = Math.round(answered / CHOICE.length * 100) + "%";
+  document.getElementById("progtext").textContent = `${answered}/${CHOICE.length} answered · ${c} changed${notes ? " · " + notes + " note" + (notes > 1 ? "s" : "") : ""}`;
+}
+paint();
+
+const SHORT = { md_draft:"Concept draft", md_drawing:"Shop drawing approval", md_standin:"Admin Manager stand-in", md_dispatch:"Dispatch without full payment", digest:"Daily summary", range:"30-40 days", days:"Day count", late_after:"Late on dashboard", qc_photo:"QC photo", cleaning:"Site cleaning proof", visit_photo:"Site visit photo", idle:"Idle rule", quote_lock:"Quotation lock", advance:"Production starts at", advance_count:"Advance counts", kg_name:"Letterhead name", delay_wa:"Delay message" };
+function summaryText(){
+  const lines = ["Behomess app decisions (Dharmendra ji)", ""];
+  let i = 0;
+  SECTIONS.forEach(sec => sec.qs.forEach(q => {
+    i++;
+    if (q.type === "emails") { lines.push(`${i}. Emails: MD ${state.t.email_md || "-"} | Admin Manager ${state.t.email_am || "-"}`); return; }
+    if (q.type === "free") { if ((state.n[q.id] || "").trim()) lines.push(`${i}. Aur: ${state.n[q.id].trim()}`); return; }
+    const o = q.o.find(x => x[0] === state.a[q.id]);
+    lines.push(`${i}. ${SHORT[q.id] ? SHORT[q.id] + ": " : ""}${o ? o[1] : "(no answer)"}${changed(q) ? " [CHANGED]" : ""}${(state.n[q.id] || "").trim() ? " | note: " + state.n[q.id].trim() : ""}`);
+  }));
+  return lines.join("\n");
+}
+
+const result = document.getElementById("result");
+function showFallback(reason){
+  const txt = summaryText();
+  result.hidden = false;
+  result.innerHTML = `<div class="panel err"><h2>Copy answers</h2><p>${esc(reason)}</p><pre class="copy" id="copytxt">${esc(txt)}</pre><div class="row"><button class="btn" id="copybtn" type="button">Copy answers</button></div><p id="copymsg" class="qhint" style="margin:0"></p></div>`;
+  document.getElementById("copybtn").onclick = async () => {
+    const msg = document.getElementById("copymsg");
+    try { await navigator.clipboard.writeText(txt); msg.textContent = "Copied. Ab WhatsApp mein paste kar dijiye."; }
+    catch (e) { const r = document.createRange(); r.selectNodeContents(document.getElementById("copytxt")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); msg.textContent = "Text select ho gaya hai. Copy dabaiye, phir WhatsApp mein paste kijiye."; }
+  };
+  result.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// Answers go to Ankita on WhatsApp: the button is a real wa.me link with the answers typed in.
+const WA_NUMBER = "919662036811";   // Ankita's WhatsApp, country code first, digits only
+const sendBtn = document.getElementById("send");
+function waHref(){ return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(summaryText()); }
+function refreshSend(){ sendBtn.href = waHref(); }
+form.addEventListener("change", refreshSend); form.addEventListener("input", refreshSend); refreshSend();
+sendBtn.addEventListener("click", () => {
+  sendBtn.href = waHref();
+  result.hidden = false;
+  result.innerHTML = `<div class="panel ok"><h2>Thank you, Dharmendra ji</h2><p>WhatsApp khul gaya hoga, bas Send dabaiye. Kuch badalna ho toh upar badal ke dobara bhej dijiye, latest wala hi maana jaayega.</p><p class="qhint" style="margin:0">WhatsApp nahi khula? <button class="btn ghost" id="fallback" type="button">Copy answers</button></p></div>`;
+  document.getElementById("fallback").onclick = () => showFallback("Answers copy karke Ankita ko bhej dijiye.");
+});
+</script>
+
+</body>
+</html>
